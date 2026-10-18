@@ -1,0 +1,72 @@
+/* ReplyFlow design tokens. Every colour, size and duration in the app comes from here.
+   One brand hue (ink green) plus warm paper neutrals. Red exists only for errors and overdue. */
+:root {
+  /* Brand ramp, single hue */
+  --brand-950: #0a2820;
+  --brand-900: #0f3a2e;
+  --brand-800: #15503f;
+  --brand-700: #1b6651;
+  --brand-600: #237f66;
+  --brand-500: #2f9a7c;
+  --brand-300: #8dcdb5;
+  --brand-200: #c3e4d5;
+  --brand-100: #e2f2ea;
+  --brand-50:  #f1f9f5;
+
+  /* Neutrals, tinted warm like paper and ink */
+  --paper: #f5f4ee;
+  --surface: #fbfaf6;
+  --raised: #ffffff;
+  --ink: #15201b;
+  --ink-2: #3a4741;
+  --muted: #5a665f;
+  --faint: #8a948d;
+  --line: #dcded4;
+  --line-strong: #c4c8bb;
+
+  /* Semantic: errors and overdue only */
+  --danger: #a3322b;
+  --danger-bg: #fbeceb;
+  --danger-line: #e8c3c0;
+
+  /* Roles */
+  --accent: var(--brand-700);
+  --accent-hover: var(--brand-800);
+  --focus: var(--brand-600);
+
+  /* Type */
+  --font-ui: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.8125rem;
+  --fs-base: 0.9375rem;
+  --fs-md: 1.0625rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.75rem;
+  --fs-2xl: 2.25rem;
+  --fs-display: clamp(2.4rem, 4.2vw, 3.4rem);
+
+  /* Space, radius, elevation */
+  --s-1: 0.25rem; --s-2: 0.5rem; --s-3: 0.75rem; --s-4: 1rem; --s-5: 1.5rem; --s-6: 2rem; --s-7: 3rem;
+  --r-sm: 6px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --shadow-pop: 0 10px 30px -8px rgba(10, 40, 32, 0.28), 0 2px 6px rgba(10, 40, 32, 0.08);
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --t-fast: 120ms;
+  --t-med: 200ms;
+
+  /* Layout */
+  --rail-w: 232px;
+  --tabbar-h: 62px;
+  --topbar-h: 56px;
+
+  font-family: var(--font-ui);
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--paper);
+  color-scheme: light;
+}

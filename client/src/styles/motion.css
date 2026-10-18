@@ -1,0 +1,87 @@
+/* One motion language for the whole product.
+   Fast (120ms): buttons, inputs.  Medium (200-260ms): menus, cards, accordions.  Slow (600-700ms): section entrances.
+   Only transform and opacity are animated. Reduced-motion visitors get colour changes only (see the end). */
+:root { --t-slow: 650ms; }
+
+/* ---- Buttons ---- */
+.btn { transition: background var(--t-fast), border-color var(--t-fast), color var(--t-fast), transform var(--t-fast) var(--ease), box-shadow var(--t-med) var(--ease); }
+.btn .btn-arrow { transition: transform var(--t-med) var(--ease); }
+.btn.light { background: var(--paper); border-color: var(--paper); color: var(--brand-950); }
+.btn.light:hover:not(:disabled) { background: #fff; border-color: #fff; }
+.btn.outline-light { background: transparent; border-color: var(--brand-300); color: #fff; }
+.btn.outline-light:hover:not(:disabled) { background: rgba(255, 255, 255, 0.1); border-color: #fff; }
+.btn.danger-ghost { border-color: transparent; background: transparent; color: var(--danger); margin-right: auto; }
+.btn.danger-ghost:hover:not(:disabled) { background: var(--danger-bg); border-color: transparent; }
+
+@media (hover: hover) {
+  /* Grow slightly on hover. Press down on click. */
+  .btn:hover:not(:disabled):not([aria-disabled='true']) { transform: scale(1.04); }
+  .btn.primary:hover:not(:disabled), .btn.light:hover:not(:disabled) { box-shadow: 0 8px 18px -8px rgba(10, 40, 32, 0.55); }
+  .btn.small:hover:not(:disabled) { transform: scale(1.05); }
+  .btn:hover:not(:disabled) .btn-arrow { transform: translateX(3px); }
+  .icon-btn:hover { transform: scale(1.1); }
+}
+.btn:active:not(:disabled):not([aria-disabled='true']) { transform: scale(0.97); box-shadow: none; }
+.icon-btn { transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast) var(--ease); }
+.btn:disabled, .btn[aria-disabled='true'] { transform: none; }
+
+/* ---- Links: the underline draws in from the left ---- */
+.link-anim { text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1.5px no-repeat; transition: background-size var(--t-med) var(--ease), color var(--t-fast); padding-bottom: 2px; }
+.link-anim:hover, .link-anim:focus-visible { background-size: 100% 1.5px; }
+
+/* ---- Cards: the whole card is one link (the title), lifted on hover ---- */
+.stretch { color: inherit; text-decoration: none; }
+.stretch::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+.card-hover { position: relative; transition: transform var(--t-med) var(--ease), box-shadow var(--t-med) var(--ease), border-color var(--t-med); }
+.card-hover:has(.stretch:focus-visible) { outline: 2px solid var(--focus); outline-offset: 3px; }
+.card-hover .stretch:focus-visible { outline: none; }
+.cover > * { transition: transform 600ms var(--ease); }
+@media (hover: hover) {
+  .card-hover:hover { box-shadow: 0 14px 30px -16px rgba(10, 40, 32, 0.4); border-color: var(--brand-300); }
+  .feature-main.card-hover:hover, .mini.card-hover:hover { transform: translateY(-3px); }
+  .card-hover:hover .cover > * { transform: scale(1.05); }
+  .card-hover:hover .btn-arrow { transform: translateX(4px); }
+}
+
+/* ---- Scroll reveal: only hidden while JavaScript is running ---- */
+.reveal { transition: opacity var(--t-slow) var(--ease) var(--d, 0ms), transform var(--t-slow) var(--ease) var(--d, 0ms); }
+.js .reveal:not(.in) { opacity: 0; transform: translateY(18px); }
+
+/* ---- Entrances ---- */
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes word-in { from { transform: translateY(105%); } to { transform: none; } }
+@keyframes err-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes cue { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(14px); opacity: 0; } 100% { opacity: 0; } }
+.stagger { opacity: 0; animation: rise 700ms var(--ease) forwards; animation-delay: calc(var(--i, 0) * 70ms + 200ms); }
+.page-enter { animation: rise 260ms var(--ease) both; }
+.field-error { animation: err-in 180ms var(--ease) both; }
+.form-error { animation: err-in 200ms var(--ease) both; }
+
+/* ---- Accordion ---- */
+.accordion { border-top: 2px solid var(--ink); }
+.acc-item { border-bottom: 1px solid var(--line-strong); }
+.acc-item h3 { margin: 0; font-size: inherit; }
+.acc-btn { width: 100%; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); padding: var(--s-3) 0; border: 0; background: none; text-align: left; font-size: 1.0625rem; font-weight: 600; line-height: 1.35; color: var(--ink); transition: color var(--t-fast); }
+.acc-btn:hover { color: var(--accent); }
+.acc-icon { flex-shrink: 0; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; color: var(--brand-700); background: var(--brand-100); transition: transform var(--t-med) var(--ease), background var(--t-fast); }
+.acc-item.open .acc-icon { transform: rotate(135deg); background: var(--brand-200); }
+.acc-panel { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 260ms var(--ease), opacity 200ms ease; }
+.acc-item.open .acc-panel { grid-template-rows: 1fr; opacity: 1; }
+.acc-inner { overflow: hidden; }
+.acc-body { padding: 0 var(--s-6) var(--s-4) 0; color: var(--ink-2); }
+.acc-body p + p { margin-top: 0.35rem; }
+
+/* ---- Tabs and chips ---- */
+.chip { min-height: 38px; padding: 0 var(--s-4); border: 1px solid var(--line-strong); border-radius: 99px; background: var(--raised); font-weight: 550; transition: background var(--t-fast), border-color var(--t-fast), color var(--t-fast), transform var(--t-fast) var(--ease); }
+.chip:hover { border-color: var(--brand-600); background: var(--brand-50); }
+.chip.active { background: var(--brand-800); border-color: var(--brand-800); color: #fff; }
+@media (hover: hover) { .chip:hover { transform: scale(1.04); } }
+.chip:active { transform: scale(0.97); }
+
+/* Reduced motion: no movement at all. Hover and focus still change colour, and nothing is hidden waiting to animate in. */
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal:not(.in) { opacity: 1; transform: none; }
+  .stagger, .hero2-title .w > span { opacity: 1; transform: none; animation: none; }
+  .btn:hover:not(:disabled), .chip:hover, .icon-btn:hover, .card-hover:hover, .card-hover:hover .cover > *, .btn:hover .btn-arrow { transform: none !important; }
+}

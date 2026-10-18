@@ -1,0 +1,43 @@
+/* Sign-in: a dark answer-sheet panel beside a quiet paper panel for the form. */
+.login { min-height: 100dvh; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(380px, 1fr); }
+
+.login-art { position: relative; overflow: hidden; background: var(--brand-950); color: var(--brand-200); }
+.omr { position: absolute; inset: 0; width: 100%; height: 100%; }
+.omr-sheet { fill: var(--brand-900); stroke: var(--brand-800); stroke-width: 1.5; animation: fade-in 500ms ease both; }
+.omr-title { fill: var(--brand-300); font: 600 12px var(--font-mono); letter-spacing: 0.18em; opacity: 0.7; }
+.omr-title-r { text-anchor: end; }
+.omr-rule { stroke: var(--brand-800); stroke-width: 1.5; }
+.omr-col { fill: var(--brand-300); font: 500 12px var(--font-mono); opacity: 0.6; }
+.omr-num { fill: var(--brand-300); font: 500 12px var(--font-mono); opacity: 0.5; }
+.omr-bubble { fill: none; stroke: var(--brand-300); stroke-opacity: 0.32; stroke-width: 1.5; }
+.omr-filled { fill: var(--brand-200); stroke: var(--brand-200); stroke-opacity: 1; transform-box: fill-box; transform-origin: center; animation: omr-pop 420ms var(--ease) both; animation-delay: calc(var(--i) * 26ms + 150ms); }
+.omr-path { fill: none; stroke: var(--brand-500); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke-opacity: 0.85; stroke-dasharray: 1; animation: omr-draw 1100ms var(--ease) 350ms both; }
+@keyframes omr-pop { from { opacity: 0; transform: scale(0.3); } to { opacity: 1; transform: none; } }
+@keyframes omr-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+/* Fade the sheet out where the wordmark sits, so text never fights the bubbles. */
+.login-art::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, var(--brand-950) 16%, rgba(10, 40, 32, 0.88) 38%, transparent 68%); }
+.login-art-copy { position: absolute; z-index: 1; left: clamp(2rem, 5vw, 4.5rem); right: clamp(2rem, 5vw, 4.5rem); bottom: clamp(2rem, 6vh, 4rem); color: #fff; }
+.login-art .mark { color: var(--brand-300); }
+.login-lede { margin-top: var(--s-4); max-width: 22ch; font-family: var(--font-display); font-size: var(--fs-display); line-height: 1.08; letter-spacing: -0.02em; color: var(--brand-100); }
+
+.login-panel { display: flex; align-items: center; justify-content: center; padding: var(--s-6) var(--s-5); background: var(--paper); }
+.login-card { width: 100%; max-width: 380px; animation: page-in 360ms var(--ease) both; }
+.login-private { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px 3px 8px; margin-bottom: var(--s-4); border: 1px solid var(--brand-200); border-radius: var(--r-sm); background: var(--brand-100); color: var(--brand-800); font-size: var(--fs-xs); font-weight: 650; letter-spacing: 0.04em; text-transform: uppercase; }
+.login-card h1 { font-size: var(--fs-2xl); }
+.login-intro { margin: var(--s-2) 0 var(--s-5); color: var(--muted); }
+.login-notice { margin-bottom: var(--s-4); padding: var(--s-2) var(--s-3); border-left: 3px solid var(--brand-600); background: var(--brand-100); color: var(--brand-900); font-size: var(--fs-sm); border-radius: 0 var(--r-md) var(--r-md) 0; }
+.login-submit { min-height: 46px; margin-top: var(--s-2); font-size: 1rem; }
+.login-submit.done { background: var(--brand-600); border-color: var(--brand-600); }
+.login-help { margin-top: var(--s-5); padding-top: var(--s-4); border-top: 1px solid var(--line); color: var(--muted); font-size: var(--fs-sm); }
+
+@media (max-width: 899px) {
+  .login { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .login-art { height: 176px; }
+  .login-art .omr { height: 640px; }
+  .login-art::after { background: linear-gradient(to top, var(--brand-950) 0%, rgba(10, 40, 32, 0.7) 45%, transparent 100%); }
+  .login-art-copy { left: var(--s-5); right: var(--s-5); bottom: var(--s-4); }
+  .login-lede { display: none; }
+  .wordmark-lg .wordmark-text { font-size: 1.6rem; }
+  .login-panel { align-items: flex-start; padding: var(--s-5) var(--s-5) calc(var(--s-6) + env(safe-area-inset-bottom)); }
+}

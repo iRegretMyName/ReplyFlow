@@ -1,0 +1,30 @@
+{
+  "name": "replyflow-admissions-desk",
+  "version": "0.3.0",
+  "private": true,
+  "description": "ReplyFlow - AI Admissions Desk (private staff portal)",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -n server,client -c blue,magenta \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "node --watch server/server.js",
+    "dev:client": "vite",
+    "build": "vite build",
+    "test": "node --test",
+    "start": "node server/server.js",
+    "staff:hash": "node server/scripts/hash-password.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.3",
+    "concurrently": "^9.1.0",
+    "vite": "^5.4.10"
+  },
+  "engines": {
+    "node": ">=18.17"
+  }
+}
